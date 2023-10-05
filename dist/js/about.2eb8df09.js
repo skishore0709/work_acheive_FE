@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkwork_acheive_1_0"]=self["webpackChunkwork_acheive_1_0"]||[]).push([[443],{833:function(e,n,a){a.r(n),a.d(n,{default:function(){return _}});var r=a(3396);const u={class:"about"},t=(0,r._)("h1",null,"This is an about page",-1),c=[t];function s(e,n){return(0,r.wg)(),(0,r.iD)("div",u,c)}var i=a(89);const o={},h=(0,i.Z)(o,[["render",s]]);var _=h}}]);
+//# sourceMappingURL=about.2eb8df09.js.map
