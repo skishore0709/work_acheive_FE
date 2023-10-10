@@ -76,7 +76,7 @@ export default {
       running: false,
       startTime: null,
       logTime: '00:00:00',
-      clockButtonLabel: 'Clock-In',
+      clockButtonLabel: 'Clock--In',
       BreakButtonLabel:'Break-In',
     };
   },
