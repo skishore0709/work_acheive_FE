@@ -85,6 +85,7 @@ import LoginPage from './LoginPage.vue';
     margin: 0px;
     padding: 0px;
     line-height: 0.5;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
   
   .nav {
@@ -167,13 +168,12 @@ import LoginPage from './LoginPage.vue';
   .button {
     margin-top: 60px;
     margin-bottom: 0;
-    width: 190px;
+    width: 205px;
     background-color: #120e0e;
     height:10000px;
     border: none;
     display: block;
     left: 0px;
-    cursor: pointer;
     padding-top: 10px;
     padding-bottom: 0;
     
@@ -184,6 +184,7 @@ import LoginPage from './LoginPage.vue';
     display: flex;
     column-gap: 30px;
     margin-bottom: 10px;
+    
   }
   
   a{
@@ -200,6 +201,7 @@ import LoginPage from './LoginPage.vue';
     font-weight: 700;
     color: #120e0e;
     text-decoration: none;
+    cursor: pointer;
   }
   
   .collapsed {
@@ -223,11 +225,12 @@ import LoginPage from './LoginPage.vue';
   }
   .icons-1{
     color: white;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 6px;
     padding: 15px;
     font-size: 25px;
     margin-left: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
   .icons,
   .icons-1{
