@@ -17,7 +17,7 @@
     },
     methods: {
       handleClick() {
-        this.$emit('takeBreak');
+        // this.$emit('takeBreak');
         this.$emit('toggleClock');
         
       },

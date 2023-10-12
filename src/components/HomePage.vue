@@ -32,7 +32,6 @@ export default {
 <style scoped>
 
 .container {
-  display: flex;
   flex-wrap: wrap;
 }
 

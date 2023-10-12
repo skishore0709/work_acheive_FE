@@ -3,21 +3,20 @@
     <div class="nav_bar">
    
       <div class="nav ">
-      <div class="bar pl-4 is-size-8-mobile">
+      <div class="bar pl-4 ">
         <button class="bars icons " @click="toggleCollapse">
           <font-awesome-icon class="fa-lg "  icon="bars" />
         </button>
         
       </div>
-      <div class=" icons-1  is-size-4-mobile    ">
+      <div class=" icons-1 ">
         <p>WorkAchieve</p>
       </div>
-      <ul>
-        <li></li>
-      </ul>
-      <div class="power is-size-4-mobile">
-        <span class="m-3"> <font-awesome-icon icon="cog" /></span>
-        <span @click="Login" v-if="!isMobile()"><font-awesome-icon icon="power-off" /></span>
+      <div class="power">
+
+          <span class="m-3"> <font-awesome-icon icon="cog" /></span>
+          <span @click="Login" ><font-awesome-icon icon="power-off" /></span>
+        
       </div>
     </div>
   
@@ -25,15 +24,15 @@
     <div>
       <div :class="{ collapsible: isCollapsed }">
         <div class="button">
-          <a class="side_bar_icons">
+          <a class="side_bar_icons" @click="Home">
             <p><font-awesome-icon class="icons mt-2 ml-4" icon="house" /></p>
             <p class="mt-1">Home</p>
           </a>
-          <a class="side_bar_icons">
+          <a class="side_bar_icons" @click="Profile">
             <p><font-awesome-icon class="icons mt-2 ml-4" icon="user" /></p>    
             <p class="mt-1">Profile</p>
           </a>
-          <a class="side_bar_icons">
+          <a class="side_bar_icons" @click="Settings">
             <p><font-awesome-icon class="icons mt-2 ml-4" icon="gear" /></p>
             <p class="mt-1">Settings</p>
           </a>
@@ -51,7 +50,6 @@
   </template>
     
   <script>
-import LoginPage from './LoginPage.vue';
 
   export default {
     name: 'Nav_BarPage',
@@ -74,7 +72,16 @@ import LoginPage from './LoginPage.vue';
       },
       Login(){
         this.$router.push({ path: '/login' });
-      }
+      },
+      Home(){
+        this.$router.push({ path: '/' });
+      },
+      Profile(){
+        this.$router.push({ path: '/profile' });
+      },
+      Settings(){
+        this.$router.push({ path: '/settings' });
+      },
     },
   };
   </script>
@@ -146,6 +153,9 @@ import LoginPage from './LoginPage.vue';
     cursor: pointer;
     margin-top: 20px;
     width: 80px;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
   
   .bar {

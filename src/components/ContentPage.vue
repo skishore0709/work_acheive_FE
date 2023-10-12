@@ -17,28 +17,31 @@
                 </div>
                 <div>
                     <p style="margin-bottom: 25px;">7448792885</p>
-                    <p>Software Developer</p>
+                    <p>Full Stack Developer</p>
                 </div>
                 
                 
             </div>
-            <div class="content-2">
+            <div class="content-2" id="clock">
                 <div class="date_time">
                     <div class="current_time" id="current-time">{{ currentTime }}</div>
                     <div class="current_date" id="current-date">{{ currentDate }}</div>
                 </div>
                 <div class="log_time">
-                    <p id="stopwatch">{{ logINTime }}</p>
-                    <p>00:00:00</p>
+                    <p id="stopwatch">{{ logTime }}</p>
+                    <p id="breakwatch">{{ breakTime }}</p>
                 </div>
                 <div class="clock_break_btn">
-                    <!-- <BaseButton class="clock_btn" buttonText ="Clock In" /> -->
-                    <BaseButton class="clock_btn"  :buttonText="clockButtonLabel" @click="toggleClock" />
+                    
+                     
+                    <BaseButton class="clock_btn" :isDisabled="isButtonDisabled"  :buttonText="clockButtonLabel" @click="toggleClock" />
+
                     <BaseButton class="break_btn"  :buttonText ="BreakButtonLabel" @click="takeBreak"/>
                 </div>
             </div>
             <div class="content-3">
                 <div>
+                    <div><PieChart></PieChart></div>
                     <BaseButton class="leave-btn" buttonText = "Apply for Leave"/>
                 </div>
                 
@@ -68,65 +71,98 @@
 <script>
 import BaseButton from './BaseButton.vue';
 import TextBox from './TextBox.vue';
+import PieChart from './PieChart.vue' 
+
 export default {
     data() {
     return {
       currentTime: '',
       currentDate: '',
-      running: false,
-      startTime: null,
+
+      runninglogin: false,
+      runningbreak: false,
+
+      startlogTime: null,
+      startbreakTime: null,
+
       logTime: '00:00:00',
+      breakTime: '00:00:00',
+
       clockButtonLabel: 'Clock--In',
+      isButtonDisabled: false,
       BreakButtonLabel:'Break-In',
+
+      intervallogin: null,
+      intervalbreak: null,
     };
   },
-  computed: {
-    logINTime() {
-      // Format the elapsed time in HH:mm:ss
-      if (this.startTime) {
-        const elapsedSeconds = Math.floor((Date.now() - this.startTime) / 1000);
-        const hours = Math.floor(elapsedSeconds / 3600);
-        const minutes = Math.floor((elapsedSeconds % 3600) / 60);
-        const seconds = elapsedSeconds % 60;
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      }
-      return '00:00:00';
-    },
-  },
+
   methods: {
     toggleClock() {
-      if (this.running) {
-        // Stop the stopwatch
-        clearInterval(this.interval);
-        this.running = false;
-        this.clockButtonLabel = 'Clock-In';
-      } else {
-        // Start the stopwatch
-        this.startTime = Date.now() - (this.startTime ? (Date.now() - this.startTime) : 0);
-        this.interval = setInterval(() => {
-          this.logTime = this.logINTime;
-        }, 1000);
-        this.running = true;
-        this.clockButtonLabel = 'Clock-Out';
-      }
+        if (this.runninglogin) {
+            // Stop the stopwatch
+            clearInterval(this.intervallogin);
+            console.log("stop-login");
+            this.runninglogin = false;
+            this.clockButtonLabel = 'Clock--In';
+        } else {
+            if (!this.startlogTime) {
+            this.startlogTime = Date.now();
+            } else {
+            // Calculate the time elapsed since last pause and add it to startTime
+            const elapsedSeconds = Math.floor((Date.now() - this.startlogTime) / 1000);
+            this.startlogTime = this.startlogTime + elapsedSeconds * 1000;
+            }
+
+            this.intervallogin = setInterval(() => {
+            const elapsedSeconds = Math.floor((Date.now() - this.startlogTime) / 1000);
+            const hours = Math.floor(elapsedSeconds / 3600);
+            const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+            const seconds = elapsedSeconds % 60;
+            this.logTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+
+    this.runninglogin = true;
+    this.clockButtonLabel = 'Clock--Out';
+  }
     },
+
     takeBreak() {
-      // Handle the Break button click
-      if (this.running) {
-        // Stop the stopwatch
-        clearInterval(this.interval);
-        this.running = false;
-        this.BreakButtonLabel = 'Break-In';
-      } else {
-        // Start the stopwatch
-        this.startTime = Date.now() - (this.startTime ? (Date.now() - this.startTime) : 0);
-        this.interval = setInterval(() => {
-          this.logTime = this.logINTime;
-        }, 1000);
-        this.running = true;
-        this.BreakButtonLabel = 'Break-Out';
-      }
+        if (this.runningbreak) {
+            // Stop the stopwatch
+            clearInterval(this.intervalbreak);
+            console.log("stop-break");
+            this.runningbreak = false;
+            this.BreakButtonLabel = 'Break--In';
+        } else {
+            if (!this.startbreakTime) {
+            this.startbreakTime = Date.now();
+            } else {
+            // Calculate the time elapsed since last pause and add it to startTime
+            const elapsedSeconds = Math.floor((Date.now() - this.startbreakTime) / 1000);
+            this.startbreakTime = this.startbreakTime + elapsedSeconds * 1000;
+            }
+            {
+                clearInterval(this.intervallogin);
+                console.log("stop-login");
+                this.runninglogin = false;
+                this.isButtonDisabled = true;
+            }
+
+            this.intervalbreak = setInterval(() => {
+            const elapsedSeconds = Math.floor((Date.now() - this.startbreakTime) / 1000);
+            const hours = Math.floor(elapsedSeconds / 3600);
+            const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+            const seconds = elapsedSeconds % 60;
+            this.breakTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+
+            this.runningbreak = true;
+            this.BreakButtonLabel = 'Break--Out';
+        }
     },
+
+    
     displaySystemTimeAndDate() {
       const currentDateTime = new Date();
       const hours = currentDateTime.getHours();
@@ -161,6 +197,7 @@ export default {
   components:{
     BaseButton,
     TextBox,
+    PieChart,
 },
 };
 </script>
@@ -308,3 +345,92 @@ export default {
     text-align: center; /* You can use 'left', 'center', or 'right' */
 }
 </style>
+
+<!-- 
+<div class="log_time">
+    <p id="stopwatch">{{ logTime }}</p>
+    <p>00:00:00</p>
+</div>
+<div class="clock_break_btn">
+
+    <BaseButton class="clock_btn"  :buttonText="clockButtonLabel" @click="toggleClock" />
+
+    <BaseButton class="break_btn"  :buttonText ="BreakButtonLabel" @click="takeBreak"/>
+</div>
+</div>
+<div class="content-3">
+<div>
+    <BaseButton class="leave-btn" buttonText = "Apply for Leave"/>
+</div>
+
+</div>
+</div>
+<div>
+<div class="col2-content-4">
+<div class="report">
+    <div>
+    <p><strong style="font-size: 20px;">Daily Reports :</strong></p>
+    </div> 
+</div>
+<div> 
+    <form>
+        <textarea class="text-box" placeholder="Provide your daily report here....." />
+    </form>
+</div>
+<div class="submit-btn">
+    <BaseButton  buttonText = "Submit"/>
+</div>
+</div>
+</div>
+</div>
+
+
+ </template>
+<script>
+import BaseButton from './BaseButton.vue';
+import TextBox from './TextBox.vue';
+export default {
+data() {
+return {
+currentTime: '',
+currentDate: '',
+
+running: false,
+startTime: null,
+logTime: '00:00:00',
+clockButtonLabel: 'Clock--In',
+BreakButtonLabel:'Break-In',
+};
+},
+computed: {
+logINTime() {
+// Format the elapsed time in HH:mm:ss
+if (this.startTime) {
+const elapsedSeconds = Math.floor((Date.now() - this.startTime) / 1000);
+const hours = Math.floor(elapsedSeconds / 3600);
+const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+const seconds = elapsedSeconds % 60;
+return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+return '00:00:00';
+},
+},
+methods: {
+toggleClock() {
+if (this.running) {
+// Stop the stopwatch
+clearInterval(this.interval);
+this.running = false;
+this.clockButtonLabel = 'Clock-In';
+} else {
+// Start the stopwatch
+if (!this.startTime) {
+this.startTime = Date.now();
+}
+this.interval = setInterval(() => {
+this.logTime = this.logINTime;
+}, 1000);
+this.running = true;
+this.clockButtonLabel = 'Clock-Out';
+}
+}, --> 
