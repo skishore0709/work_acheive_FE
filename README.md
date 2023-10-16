@@ -15,5 +15,10 @@ npm run serve
 npm run build
 ```
 
+### Run this command to add node_modules folder once pulled.
+ '''
+ npm i
+ '''
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
