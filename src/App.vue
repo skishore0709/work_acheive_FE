@@ -4,8 +4,6 @@
 </template>
 <script>
 
-
-
 </script>
 <style>
 #app {

@@ -7,6 +7,7 @@
     <a class="login_btn">LogIn</a> 
     <router-link class="register_btn" :to="{name: 'Register'}">Register</router-link>
   </nav>
+  
     <div class="hello">
         <div class="container bg-dark text-light">
             <div class="row">
@@ -70,7 +71,7 @@ button {
 
 .container {
     width: fit-content;
-    border-block: 5px solid #2c3e50;
+    border: 5px solid #2c3e50;
     border-radius: 10px;
     margin-top: 10px;
 }

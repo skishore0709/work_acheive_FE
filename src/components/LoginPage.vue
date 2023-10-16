@@ -3,6 +3,7 @@
     <!--img src="C:\Users\DELL\VueProject\work_acheive_1.0\src\assets\logo.jpg" alt="logo" width="500" height="600"-->
         <h4>Bandi Informatics</h4>
     </div>
+    
     <nav style="margin-top: 30px;">
     <a class="login_btn">LogIn</a> 
     <router-link class="register_btn" :to="{name: 'Register'}">Register</router-link>

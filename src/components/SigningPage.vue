@@ -6,6 +6,5 @@
   </nav>
 </template>
 <style>
-    
-
+  
 </style>

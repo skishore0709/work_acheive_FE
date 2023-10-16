@@ -3,7 +3,7 @@
         {{ buttonText }}
     </button>
   </template>
-  
+
   <script>
   
   export default {

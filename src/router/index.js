@@ -4,7 +4,6 @@ import RegiesterView from '../views/RegiesterView.vue';
 import HomeView from '../views/HomeView.vue';
 
 
-
 const routes = [
   {
     path: '/login',
@@ -21,6 +20,7 @@ const routes = [
     name:'Home',
     component:HomeView
   }
+
 ]
 
 const router = createRouter({

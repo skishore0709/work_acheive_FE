@@ -5,7 +5,6 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBars, faCog, faGear, faHouse, faPhone, faPowerOff, faUser, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-
 library.add(faPhone);
 library.add(faBars);
 library.add(faPowerOff);
