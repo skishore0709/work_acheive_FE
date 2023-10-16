@@ -1,4 +1,13 @@
 <template>
+        <div class="title">
+    <!--img src="C:\Users\DELL\VueProject\work_acheive_1.0\src\assets\logo.jpg" alt="logo" width="500" height="600"-->
+        <h4>Bandi Informatics</h4>
+    </div>
+    
+    <nav style="margin-top: 30px;">
+    <a class="login_btn">LogIn</a> 
+    <router-link class="register_btn" :to="{name: 'Register'}">Register</router-link>
+  </nav>
   <div class="hello">
     <div class="container bg-dark text-light">
       <div class="row">
@@ -9,7 +18,7 @@
               <input type="email" class="form-control" />
               <label>Password</label>
               <input type="password" class="form-control" />
-              <button type="button" class="btn btn-success">LogIn</button>
+              <button @click="goToHomePage" type="button" class="btn btn-success">LogIn</button>
             </div>
           </form>
         </div>
@@ -23,6 +32,11 @@ export default {
   name: 'LoginPage',
   props: {
     msg: String
+  },
+  methods: {
+    goToHomePage() {
+      this.$router.push({ path: '/' });
+    }
   }
 }
 </script>
@@ -53,5 +67,40 @@ button{
   width: fit-content;
   border-radius: 10px;
   margin-top: 10px;
+}
+nav {
+  padding: 30px;
+  text-align: center;
+}
+h4{
+  font-weight: 550;
+  font-size: xx-large;
+  font-style:oblique;
+}
+.title{
+  margin-top: 15px;
+  align-items:start;
+  padding-inline-end: 60%;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+nav a.router-link-exact-active {
+  color: whitesmoke;
+  background-color: #2c3e50;
+}
+.register_btn:hover,
+.login_btn:hover{
+  background-color: #2c3e50;
+  color: aliceblue;
+  cursor: pointer;
+
 }
 </style>
