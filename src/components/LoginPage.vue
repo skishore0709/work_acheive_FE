@@ -1,13 +1,15 @@
 <template>
         <div class="title">
     <!--img src="C:\Users\DELL\VueProject\work_acheive_1.0\src\assets\logo.jpg" alt="logo" width="500" height="600"-->
-        <h4>Bandi Informatics</h4>
+        <h4>Horizon Family</h4>
     </div>
     
     <nav style="margin-top: 30px;">
-    <a class="login_btn">LogIn</a> 
+      <router-link class="login_btn" :to="{name: 'Login'}">LogIn</router-link>
     <router-link class="register_btn" :to="{name: 'Register'}">Register</router-link>
   </nav>
+
+  
   <div class="hello">
     <div class="container bg-dark text-light">
       <div class="row">
@@ -81,12 +83,13 @@ h4{
   margin-top: 15px;
   align-items:start;
   padding-inline-end: 60%;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: whitesmoke;
+  font-family:Verdana, sans-serif;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: whitesmoke;
   text-decoration: none;
   padding: 10px;
   border-radius: 5px;

@@ -12,9 +12,10 @@
               <div class=" icons-1 ">
                 <p>WorkAchieve</p>
               </div>
-              <div class="power">
-                  <span class="m-3"> <font-awesome-icon icon="cog" /></span>
-                  <span @click="Login" ><font-awesome-icon icon="power-off" /></span>
+             
+              <div class="right_top_nav">
+                <div class="profile_icon"><p>K</p></div>
+                  <span @click="Login" class="power" ><font-awesome-icon icon="power-off" /></span>
               </div>
           </div>
         </div>
@@ -88,6 +89,19 @@ export default {
   flex-wrap: wrap;
 }
 
+.profile_icon{
+    background-color: rgb(125, 125, 211);
+    width: 35px;
+    height: 30px;
+    border-radius: 100px;
+    text-align:center;
+    color: antiquewhite;
+    letter-spacing: 1px;
+    padding-top: 3px;
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    font-weight: 500;
+}
 
 .top_side_bar{
   position: fixed;
@@ -146,14 +160,22 @@ export default {
     letter-spacing: 5px;
   }
   
-  .power {
+  .right_top_nav {
     color: #ffffff;
+    display:flex;
+    gap: 25px;
     cursor: pointer;
     margin-top: 20px;
     width: 80px;
+    margin-right: 25px;
     position: absolute;
     top: 0;
     right: 0;
+  }
+
+  .power{
+    padding-top: 2px;
+    font-size: 20px;
   }
   
   .bar {
@@ -269,7 +291,7 @@ export default {
   }
 
   .footer{
-    padding-top: 360px;
+    padding-top: 570px;
     color:aliceblue;
     padding-left: 60px;
     font-size: xx-small;
