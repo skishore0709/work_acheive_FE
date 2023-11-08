@@ -14,7 +14,7 @@
               </div>
              
               <div class="right_top_nav">
-                <div class="profile_icon"><p>K</p></div>
+                <div class="profile_icon"><p> {{ emp_frst_letter }}</p></div>
                   <span @click="Login" class="power" ><font-awesome-icon icon="power-off" /></span>
               </div>
           </div>
@@ -36,10 +36,6 @@
                 <p class="mt-1">Settings</p>
               </a>
               <p class="footer">@ Bandi Informatics</p>
-              <!-- <a class="side_bar_icons ml-4">
-                <p>@</p>
-                <p>Settings</p>
-              </a> -->
             </div>
           </div>
       </div>
@@ -50,25 +46,40 @@
   </div>
     
 </template>
-  
-
 <script>
 import ContentPage from './ContentPage.vue';
+import AccountService from '@/service/AccountService';
+import store from '@/store';
 
 export default {
   name: 'HomePage',
   data() {
       return {
+        emp_id_data: null,
         isCollapsed: true,
+        emp_data : null,
+        emp_frst_letter : null,
       };
     },
   props: {
     msg: String,
   },
+  computed: {
+    emp_id() {
+      return store.state.emp_id;
+    },
+  },
   components: {
     'content-page': ContentPage,
   },
   methods: {
+    getEmployeeData() {
+      console.log("getEmployee Home Page ::"+this.emp_id);
+      AccountService.getEmployeeById(this.emp_id).then((response) => {
+        this.emp_data = response.data;
+        this.emp_frst_letter = this.emp_data.employeeName.charAt(0);
+      });
+    },
       toggleCollapse() {
         this.isCollapsed = !this.isCollapsed;
       },
@@ -78,8 +89,11 @@ export default {
         );
       },
       Login(){
-        this.$router.push({ path: '/login' });
+        this.$router.push({ path: '/' });
       }
+    },
+    mounted(){
+      this.getEmployeeData();
     },
 };
 </script>

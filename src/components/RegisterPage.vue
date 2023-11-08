@@ -37,7 +37,7 @@ export default {
     },
     methods:{
         Login(){
-        this.$router.push({ path: '/login' });
+        this.$router.push({ path: '/' });
       }
     }
 }
@@ -65,7 +65,8 @@ form {
 }
 
 button {
-    margin-top: 30px;
+  margin-left: 130px;
+  margin-top: 40px;
     border-radius: 5px;
 }
 
@@ -76,8 +77,9 @@ button {
     margin-top: 10px;
 }
 .title{
-    margin-top: 15px;
   align-items:start;
+  padding-top: 20px;
+  padding-left: 10px;
   padding-inline-end: 60%;
   color: whitesmoke;
   font-family:Verdana, Geneva, Tahoma, sans-serif;

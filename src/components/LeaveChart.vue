@@ -4,17 +4,19 @@
     :options="chartOptions"
     :data="computedChartData"
   />
+  
 </template>
 
 <script>
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import PopupComponent from './PopupComponent.vue'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
   name: 'BarChart',
-  components: { Bar },
+  components: { Bar,PopupComponent },
   data() {
     return {
       total_leave: 24,
@@ -25,6 +27,11 @@ export default {
         responsive: true
       }
     }
+  },
+  methods: {
+    incrementApprovalData() {
+      this.approval_pending++;
+    },
   },
   computed:{
     computedChartData(){

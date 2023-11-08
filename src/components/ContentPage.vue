@@ -3,22 +3,22 @@
         <div class="container_body" >
         <div class="content_page">
             <div class="content-1 p-4 mt-7">
-                <div class="profile_icon"><p>K</p></div>
+                <div class="profile_icon"><p> {{ emp_frst_letter }}</p></div>
                 <div style="font-weight: 900;">
                     <p style="margin-bottom: 25px;">Name:</p>
                     <p>e-mail:</p>
                 </div>
                 <div>
-                    <p style="margin-bottom: 25px;">Kishore Kumar S</p>
-                    <p>Kishore.Kumar@hfmg.net</p>
+                    <p style="margin-bottom: 25px;"> {{ emp_name }}</p>
+                    <p> {{ emp_email }}</p>
                 </div>
                 <div style="font-weight: 900;">
                     <p style="margin-bottom: 25px;">Designation:</p>
                     <p>Reporting to:</p>
                 </div>
                 <div class="profile_content">
-                    <p style="margin-bottom: 25px;">Sr.Developer</p>
-                    <p>Bandi Srinivas</p>
+                    <p style="margin-bottom: 25px;"> {{ emp_designation }}</p>
+                    <p> {{ emp_reporting }}</p>
                 </div>
                 
                 
@@ -52,8 +52,9 @@
                 </div>
                 <div>
                     <BaseButton class="leave_submit" @click="openPopup" buttonText="Apply Leave" />
-                    <PopupForm  v-if="showPopup" @close-popUp="closePopup" />
+                    <PopupForm  v-if="showPopup" @close-popUp="closePopup"  />
                 </div>
+                <!-- <BarChart ref="leaveChartComponent" /> -->
             </div>
         </div>
         
@@ -95,7 +96,6 @@
                 <div class="submit-btn">
                     <BaseButton   buttonText = "Submit"/>
                 </div>
-               
             </div>
     </div>
 
@@ -108,12 +108,22 @@ import TextBox from './TextBox.vue';
 import BarChart from './LeaveChart.vue' ;
 import MouseTracker from './MouseTracker.vue';
 import PopupForm from './PopupComponent.vue';
+import AccountService from '@/service/AccountService';
+import store from '@/store';
 
 
 export default {
     data() {
     return {
+        employees: [],
+        emp_id_data: null,
         showPopup: false,
+        employeeData: null, 
+        emp_frst_letter : null,
+        emp_name: null,
+        emp_designation : null,
+        emp_email : null,
+        emp_reporting : null,
       currentTime: '',
       currentDate: '',
 
@@ -134,6 +144,13 @@ export default {
       intervalbreak: null,
       resumeBreakIn: null,
     };
+  },
+
+  computed: {
+    emp_id() {
+      this.emp_id_data = store.state.emp_id;
+      return store.state.emp_id;
+    },
   },
 
   methods: {
@@ -194,9 +211,24 @@ export default {
     openPopup() {
       this.showPopup = true;
     },
+    //  incrementApprovalData() {
+    //   // Call the method in the LeaveChart component to increment the "Approval" data
+    //   this.$refs.leaveChartComponent.incrementApprovalData();
+    // },
 
     closePopup() {
       this.showPopup = false;
+    },
+    getEmployee(emp_id){
+        console.log("getEmployee content Page ::"+this.emp_id);
+        AccountService.getEmployeeById(this.emp_id).then((response) => {
+            this.employeeData = response.data;
+            this.emp_name = this.employeeData.employeeName;
+            this.emp_designation = this.employeeData.designation;
+            this.emp_email = this.employeeData.mail;
+            this.emp_reporting = this.employeeData.reportingTo;
+            this.emp_frst_letter = this.employeeData.employeeName.charAt(0);
+        });
     },
     takeBreak() {
         if (this.runningbreak) {
@@ -282,9 +314,7 @@ export default {
     this.runningbreak = true;
     this.BreakButtonLabel = 'Break-Out';
 },
-
-    
-    displaySystemTimeAndDate() {
+      displaySystemTimeAndDate() {
       const currentDateTime = new Date();
       const hours = currentDateTime.getHours();
       const minutes = currentDateTime.getMinutes();
@@ -304,12 +334,15 @@ export default {
     }
   },
   mounted() {
+    this.getEmployee(store.state.emp_id);
+
     // Update the time every second
     setInterval(this.displaySystemTimeAndDate, 1000);
 
     // Initial update
     this.displaySystemTimeAndDate();
   },
+ 
 
   name: 'ContentPage',
   props: {

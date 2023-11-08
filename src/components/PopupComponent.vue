@@ -60,8 +60,8 @@
     openPopup() {
         console.log("Opening - popUp component");
     },
-    apply_leave(){
-     
+    apply_leave() {
+      this.$emit('increment-approval',2);
     },
     closePopup() {
         this.$emit('close-popUp');
