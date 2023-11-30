@@ -1,10 +1,10 @@
 <template>
             <div class="title">
     <!--img src="C:\Users\DELL\VueProject\work_acheive_1.0\src\assets\logo.jpg" alt="logo" width="500" height="600"-->
-        <h4>Bandi Informatics</h4>
+        <h4>Horizon Family</h4>
     </div>
     <nav style="margin-top: 30px;">
-    <a class="login_btn">LogIn</a> 
+    <router-link class="login_btn" :to="{name: 'Login'}">LogIn</router-link>
     <router-link class="register_btn" :to="{name: 'Register'}">Register</router-link>
   </nav>
   
@@ -37,7 +37,7 @@ export default {
     },
     methods:{
         Login(){
-        this.$router.push({ path: '/login' });
+        this.$router.push({ path: '/' });
       }
     }
 }
@@ -65,7 +65,8 @@ form {
 }
 
 button {
-    margin-top: 30px;
+  margin-left: 130px;
+  margin-top: 40px;
     border-radius: 5px;
 }
 
@@ -76,9 +77,11 @@ button {
     margin-top: 10px;
 }
 .title{
-    margin-top: 15px;
   align-items:start;
+  padding-top: 20px;
+  padding-left: 10px;
   padding-inline-end: 60%;
+  color: whitesmoke;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 h4{

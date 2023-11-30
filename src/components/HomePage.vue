@@ -12,9 +12,10 @@
               <div class=" icons-1 ">
                 <p>WorkAchieve</p>
               </div>
-              <div class="power">
-                  <span class="m-3"> <font-awesome-icon icon="cog" /></span>
-                  <span @click="Login" ><font-awesome-icon icon="power-off" /></span>
+             
+              <div class="right_top_nav">
+                <div class="profile_icon"><p> {{ emp_frst_letter }}</p></div>
+                  <span @click="Login" class="power" ><font-awesome-icon icon="power-off" /></span>
               </div>
           </div>
         </div>
@@ -35,10 +36,6 @@
                 <p class="mt-1">Settings</p>
               </a>
               <p class="footer">@ Bandi Informatics</p>
-              <!-- <a class="side_bar_icons ml-4">
-                <p>@</p>
-                <p>Settings</p>
-              </a> -->
             </div>
           </div>
       </div>
@@ -49,25 +46,40 @@
   </div>
     
 </template>
-  
-
 <script>
 import ContentPage from './ContentPage.vue';
+import AccountService from '@/service/AccountService';
+import store from '@/store';
 
 export default {
   name: 'HomePage',
   data() {
       return {
+        emp_id_data: null,
         isCollapsed: true,
+        emp_data : null,
+        emp_frst_letter : null,
       };
     },
   props: {
     msg: String,
   },
+  computed: {
+    emp_id() {
+      return store.state.emp_id;
+    },
+  },
   components: {
     'content-page': ContentPage,
   },
   methods: {
+    getEmployeeData() {
+      console.log("getEmployee Home Page ::"+this.emp_id);
+      AccountService.getEmployeeById(this.emp_id).then((response) => {
+        this.emp_data = response.data;
+        this.emp_frst_letter = this.emp_data.employeeName.charAt(0);
+      });
+    },
       toggleCollapse() {
         this.isCollapsed = !this.isCollapsed;
       },
@@ -77,8 +89,11 @@ export default {
         );
       },
       Login(){
-        this.$router.push({ path: '/login' });
+        this.$router.push({ path: '/' });
       }
+    },
+    mounted(){
+      this.getEmployeeData();
     },
 };
 </script>
@@ -88,6 +103,19 @@ export default {
   flex-wrap: wrap;
 }
 
+.profile_icon{
+    background-color: rgb(125, 125, 211);
+    width: 35px;
+    height: 30px;
+    border-radius: 100px;
+    text-align:center;
+    color: antiquewhite;
+    letter-spacing: 1px;
+    padding-top: 3px;
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    font-weight: 500;
+}
 
 .top_side_bar{
   position: fixed;
@@ -146,14 +174,22 @@ export default {
     letter-spacing: 5px;
   }
   
-  .power {
+  .right_top_nav {
     color: #ffffff;
+    display:flex;
+    gap: 25px;
     cursor: pointer;
     margin-top: 20px;
     width: 80px;
+    margin-right: 25px;
     position: absolute;
     top: 0;
     right: 0;
+  }
+
+  .power{
+    padding-top: 2px;
+    font-size: 20px;
   }
   
   .bar {
@@ -269,10 +305,11 @@ export default {
   }
 
   .footer{
-    padding-top: 360px;
+    padding-top: 570px;
     color:aliceblue;
     padding-left: 60px;
     font-size: xx-small;
   }
 
 </style>
+@/store

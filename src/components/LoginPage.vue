@@ -1,13 +1,15 @@
 <template>
         <div class="title">
     <!--img src="C:\Users\DELL\VueProject\work_acheive_1.0\src\assets\logo.jpg" alt="logo" width="500" height="600"-->
-        <h4>Bandi Informatics</h4>
+        <h4>Horizon Family</h4>
     </div>
     
     <nav style="margin-top: 30px;">
-    <a class="login_btn">LogIn</a> 
+      <router-link class="login_btn" :to="{name: 'Login'}">LogIn</router-link>
     <router-link class="register_btn" :to="{name: 'Register'}">Register</router-link>
   </nav>
+
+  
   <div class="hello">
     <div class="container bg-dark text-light">
       <div class="row">
@@ -15,9 +17,9 @@
           <form>
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-control" />
+              <input type="email" class="form-control" v-model="mail" />
               <label>Password</label>
-              <input type="password" class="form-control" />
+              <input type="password" class="form-control" v-model="password" :class="{ 'mismatch': passwordMismatch }"/>
               <button @click="goToHomePage" type="button" class="btn btn-success">LogIn</button>
             </div>
           </form>
@@ -25,19 +27,47 @@
       </div>
     </div>
   </div>
+  <p v-if="passwordMismatch"  class="error_message">Email & Password mismatch. Please try again.</p>
 </template>
 
 <script>
+
+import AccountService from '@/service/AccountService';
+import store from '@/store';
+
 export default {
   name: 'LoginPage',
+  data(){
+    return{
+      mail : null,
+      employee_detail : false,
+      employeeData : null,
+      password : null,
+      passwordMismatch: false,
+      emp_id : null
+    };
+  },
   props: {
     msg: String
   },
   methods: {
-    goToHomePage() {
-      this.$router.push({ path: '/' });
+  async goToHomePage() {
+    try {
+      const response = await AccountService.loginByMail(this.mail, this.password);
+      const fakeToken = 'fakeToken123';
+      this.employeeData = response.data;
+      this.emp_id = this.employeeData.id;
+      store.commit('setEmpId', this.emp_id);
+      this.$router.push({ path: '/home' });
+    } 
+    catch (error) {
+      if (error.response) {
+        this.passwordMismatch = true;
+      }
     }
   }
+}
+
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -60,7 +90,8 @@ form{
   margin-top: 35px;
 }
 button{
-  margin-top: 30px;
+  margin-left: 140px;
+  margin-top: 40px;
   border-radius: 5px;
 }
 .container{
@@ -78,15 +109,17 @@ h4{
   font-style:oblique;
 }
 .title{
-  margin-top: 15px;
+  padding-top: 20px;
+  padding-left: 10px;
   align-items:start;
   padding-inline-end: 60%;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: whitesmoke;
+  font-family:Verdana, sans-serif;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: whitesmoke;
   text-decoration: none;
   padding: 10px;
   border-radius: 5px;
@@ -102,5 +135,11 @@ nav a.router-link-exact-active {
   color: aliceblue;
   cursor: pointer;
 
+}
+
+.error_message{
+  color: brown;
+  padding-top: 100px;
+  padding-left: 40%;
 }
 </style>
