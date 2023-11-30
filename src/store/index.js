@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 
+const emp_id = 0;
 export default createStore({
   state: {
     approvalPending: 0, // Initialize with your default value
@@ -13,6 +14,7 @@ export default createStore({
     },
     setEmpId(state, emp_id) {
       state.emp_id = emp_id; // Define the setEmpId mutation
+      this.emp_id = state.emp_id;
     },
   },
   actions: {

@@ -109,7 +109,7 @@ import BarChart from './LeaveChart.vue' ;
 import MouseTracker from './MouseTracker.vue';
 import PopupForm from './PopupComponent.vue';
 import AccountService from '@/service/AccountService';
-import store from '@/store';
+import store from '@/store/index';
 
 
 export default {
@@ -149,7 +149,9 @@ export default {
   computed: {
     emp_id() {
       this.emp_id_data = store.state.emp_id;
-      return store.state.emp_id;
+      console.log("employeeId :"+this.emp_id_data);
+      store.commit('setEmpId', this.emp_id_data);
+      return this.emp_id_data;
     },
   },
 
@@ -221,7 +223,7 @@ export default {
     },
     getEmployee(emp_id){
         console.log("getEmployee content Page ::"+this.emp_id);
-        AccountService.getEmployeeById(this.emp_id).then((response) => {
+        AccountService.getEmployeeById(this.emp_id_data).then((response) => {
             this.employeeData = response.data;
             this.emp_name = this.employeeData.employeeName;
             this.emp_designation = this.employeeData.designation;
@@ -334,11 +336,9 @@ export default {
     }
   },
   mounted() {
-    this.getEmployee(store.state.emp_id);
-
+    this.getEmployee(store.state.emp_id_data);
     // Update the time every second
     setInterval(this.displaySystemTimeAndDate, 1000);
-
     // Initial update
     this.displaySystemTimeAndDate();
   },
