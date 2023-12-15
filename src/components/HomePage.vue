@@ -74,8 +74,7 @@ export default {
   },
   methods: {
     getEmployeeData() {
-      console.log("getEmployee Home Page ::"+this.emp_id);
-      AccountService.getEmployeeById(this.emp_id).then((response) => {
+      AccountService.getEmployeeById(window.localStorage.getItem("login")).then((response) => {
         this.emp_data = response.data;
         this.emp_frst_letter = this.emp_data.employeeName.charAt(0);
       });

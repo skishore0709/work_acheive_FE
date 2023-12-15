@@ -54,10 +54,9 @@ export default {
   async goToHomePage() {
     try {
       const response = await AccountService.loginByMail(this.mail, this.password);
-      const fakeToken = 'fakeToken123';
       this.employeeData = response.data;
       this.emp_id = this.employeeData.id;
-      store.commit('setEmpId', this.emp_id);
+      window.localStorage.setItem("login",this.emp_id);
       this.$router.push({ path: '/home' });
     } 
     catch (error) {

@@ -148,10 +148,8 @@ export default {
 
   computed: {
     emp_id() {
-      this.emp_id_data = store.state.emp_id;
       console.log("employeeId :"+this.emp_id_data);
-      store.commit('setEmpId', this.emp_id_data);
-      return this.emp_id_data;
+      return window.localStorage.getItem("login");
     },
   },
 
@@ -185,7 +183,6 @@ export default {
   }
     },
     resumelogin(){
-        console.log("LogIn Time ::"+this.logTime);
         if (this.runninglogin) {
         // The timer is already running, no need to resume
         return;
@@ -222,8 +219,7 @@ export default {
       this.showPopup = false;
     },
     getEmployee(emp_id){
-        console.log("getEmployee content Page ::"+this.emp_id);
-        AccountService.getEmployeeById(this.emp_id_data).then((response) => {
+        AccountService.getEmployeeById(window.localStorage.getItem("login")).then((response) => {
             this.employeeData = response.data;
             this.emp_name = this.employeeData.employeeName;
             this.emp_designation = this.employeeData.designation;
