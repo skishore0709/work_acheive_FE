@@ -35,7 +35,7 @@
                 <p><font-awesome-icon class="icons mt-2 ml-4" icon="gear" /></p>
                 <p class="mt-1">Settings</p>
               </a>
-              <p class="footer">@ Bandi Informatics</p>
+              <p class="footer">Privacy policy / Support</p>
             </div>
           </div>
       </div>
@@ -305,7 +305,7 @@ export default {
   }
 
   .footer{
-    padding-top: 570px;
+    padding-top: 650px;
     color:aliceblue;
     padding-left: 60px;
     font-size: xx-small;
