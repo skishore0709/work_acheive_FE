@@ -3,8 +3,12 @@
       <div class="popup-content">
         <form>
             <div class="form-group">
-                <label for="leave_date">Date:</label>
-                <input class="calendar" style="border-radius: 10px;width: 60%; margin-left: 80px; border: 1px solid black;" type="date" id="birthdate" required>
+                <label for="leave_date">From:</label>
+                <input class="calendar" style="border-radius: 10px;width: 60%; margin-left: 78px; border: 1px solid black;" type="date" id="birthdate" required>
+                </div>
+                <div class="form-group">
+                <label for="leave_date">To:</label>
+                <input class="calendar" style="border-radius: 10px;width: 60%; margin-left: 97px; border: 1px solid black;" type="date" id="birthdate" required>
                 </div>
             <div class="form-group">
           <label for="leave_type">Leave Type:</label>

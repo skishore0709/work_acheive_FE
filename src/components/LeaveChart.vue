@@ -32,6 +32,15 @@ export default {
     incrementApprovalData() {
       this.approval_pending++;
     },
+    getRandomColor() {
+      // Generate a random color in hexadecimal format
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    },
   },
   computed:{
     computedChartData(){
@@ -40,7 +49,7 @@ export default {
         datasets: [
           {
             label: 'Leave',
-            backgroundColor: 'rgb(125,125,211)',
+            backgroundColor:  this.getRandomColor(),
             data: [this.total_leave, this.taken_leave, this.total_leave - this.taken_leave, this.approval_pending]
           }
         ]

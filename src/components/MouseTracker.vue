@@ -33,7 +33,7 @@
         // Start a new timer for 5 minutes
         this.activityTimer = setTimeout(() => {
           this.activityStopped = true; // Show the notification
-        }, 5 * 1000); // 5 minutes in milliseconds
+        }, 5 * 60 * 10000); // 5 minutes in milliseconds
       },
     },
     beforeDestroy() {

@@ -38,6 +38,7 @@
     cursor: pointer;
     outline: none;
   }
+ 
   .base-button:active{
     background-color: #007bff;
   }

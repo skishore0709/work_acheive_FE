@@ -148,7 +148,6 @@ export default {
 
   computed: {
     emp_id() {
-      console.log("employeeId :"+this.emp_id_data);
       return window.localStorage.getItem("login");
     },
   },
@@ -467,7 +466,7 @@ export default {
     
 }
 .profile_icon{
-    background-color: rgb(125, 125, 211);
+    background-color: #5990C5;
     width: 75px;
     height: 75px;
     border-radius: 100px;

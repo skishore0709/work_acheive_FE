@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="top_side_bar">
-        
         <div class="nav_bar">
             <div class="nav ">
               <div class="bar pl-4 ">
@@ -14,8 +13,8 @@
               </div>
              
               <div class="right_top_nav">
-                <div class="profile_icon"><p> {{ emp_frst_letter }}</p></div>
-                  <span @click="Login" class="power" ><font-awesome-icon icon="power-off" /></span>
+                <div class="profile_icon" id="profile_icon"><p> {{ emp_frst_letter }}</p></div>
+                  <span @click="Login" class="power"><font-awesome-icon icon="power-off" /></span>
               </div>
           </div>
         </div>
@@ -35,7 +34,7 @@
                 <p><font-awesome-icon class="icons mt-2 ml-4" icon="gear" /></p>
                 <p class="mt-1">Settings</p>
               </a>
-              <p class="footer">Privacy policy / Support</p>
+              <!-- <a class="footer">Privacy policy</a> -->
             </div>
           </div>
       </div>
@@ -77,6 +76,7 @@ export default {
       AccountService.getEmployeeById(window.localStorage.getItem("login")).then((response) => {
         this.emp_data = response.data;
         this.emp_frst_letter = this.emp_data.employeeName.charAt(0);
+
       });
     },
       toggleCollapse() {
@@ -88,6 +88,8 @@ export default {
         );
       },
       Login(){
+        window.localStorage.removeItem("login");
+        window.localStorage.clear();
         this.$router.push({ path: '/' });
       }
     },
@@ -114,6 +116,11 @@ export default {
     box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.5);
     font-size: 18px;
     font-weight: 500;
+    transition: 0.5ms;
+}
+
+.profile_icon:hover{
+  transform: scale(1.2,1.2);
 }
 
 .top_side_bar{
@@ -189,6 +196,11 @@ export default {
   .power{
     padding-top: 2px;
     font-size: 20px;
+    transition: 0.5ms;
+  }
+
+  .power:hover{
+    transform: scale(1.2,1.2);
   }
   
   .bar {
@@ -304,11 +316,11 @@ export default {
   }
 
   .footer{
-    padding-top: 650px;
+    margin-top: 150%;
+    bottom:0;
     color:aliceblue;
-    padding-left: 60px;
+    margin-left: 70px;
     font-size: xx-small;
   }
 
 </style>
-@/store
